@@ -4,7 +4,7 @@ const API_ENDPOINT = 'http://localhost:8080/api/books';
 //These values are not declared as constants, to allow for changing them due to user interaction
 let pageSize = 10;
 let sortColumn = 'author';
-let sortOrder = 'asc';
+let sortDirection = 'asc';
 let queryString
 let isInitialized = false;
 
@@ -15,7 +15,7 @@ export async function initBooks(match) {
   const page = match?.params?.page || 0
   pageSize = match?.params?.size || pageSize
   sortColumn = match?.params?.sort?.split(",")[0] || sortColumn
-  sortOrder = match?.params?.sort.split(",")[1] || "asc"
+  sortDirection = match?.params?.sort.split(",")[1] || "asc"
 
 
   if (!isInitialized) {  //No reason to setup event handlers if it's already been done
@@ -41,10 +41,8 @@ function handleSortClick(evt) {
 
   //TODO Add the missing sort functionality here
   sortColumn = target.id.substring(5)
-  const sort = target.dataset.sort_order === 'asc' ? 'desc' : 'asc'
-  target.dataset.sort_order = sort
-  sortOrder = sort
-
+  sortDirection = target.dataset.sort_direction === 'asc' ? 'desc' : 'asc'
+  target.dataset.sort_order = sortDirection
   fetchData();
 }
 

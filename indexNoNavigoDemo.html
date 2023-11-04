@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,18 +12,20 @@
 <body>
   <div class="container mt-5">
     <h2>Pagination example in a simple HTML page without Navigo and JS-modules</h2>
-    <p>If you <b>don't</b> like the Navigo/JS-modules setup used this semester, copy this file into somewhere else, and delete the demo project you cloned </p>
+    <p>If you <b>don't</b> like the Navigo/JS-modules setup used this semester, copy this file into somewhere else, and
+      delete the demo project you cloned </p>
     <do>If you <b>do prefer</b> the router setup, just delete this file from the "project"</p>
-    <table class="table">
-      <thead>
-        <tr id="header-row">
-          <th style="width:25%">Author <i  id="sort-author" class="fa fa-sort"></i></th>
-          <th>Title  <i  id="sort-title" class= "fa fa-sort"></i></th></th>
-        </tr>
-      </thead>
-      <tbody id="tbl-rows"></tbody>
-    </table>
-    <ul class="pagination" id="pagination"></ul>
+      <table class="table">
+        <thead>
+          <tr id="header-row">
+            <th style="width:25%">Author <i id="sort-author" data-sort_direction="asc" class="fa fa-sort"></i></th>
+            <th>Title <i id="sort-title" data-sort_direction="asc" class="fa fa-sort"></i></th>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tbl-rows"></tbody>
+      </table>
+      <ul class="pagination" id="pagination"></ul>
   </div>
 
   <script>
@@ -33,11 +36,13 @@
     let sortDirection = 'asc';
 
     document.getElementById('header-row').onclick = function (evt) {
-     // evt.preventDefault();
-      const id = evt.target.id;
-      if(!id.startsWith('sort-')) return;
-      sortColumn = id.split('-')[1];
-      sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+      const target = evt.target
+      if (!target.id.startsWith("sort-")) {
+        return
+      }
+      sortColumn = target.id.substring(5)
+      sortDirection = target.dataset.sort_direction === 'asc' ? 'desc' : 'asc'
+      target.dataset.sort_direction = sortDirection
       fetchData();
     };
 
