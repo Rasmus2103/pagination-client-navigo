@@ -49,7 +49,7 @@ function handleSortClick(evt) {
 async function fetchData(page = 0) {
   const size = pageSize
   //Build a query string like this to match expectations on the server: ?page=0&size=10&sort=author,desc
-  queryString = `?page=${page}&size=${size}&sort=${sortColumn},${sortOrder}`
+  queryString = `?page=${page}&size=${size}&sort=${sortColumn},${sortDirection}`
   const data = await fetch(`${API_ENDPOINT}${queryString}`).then(res => res.json())//TODO: Handle error cases
   displayData(data.content);
   displayPagination(data.totalPages, page);
