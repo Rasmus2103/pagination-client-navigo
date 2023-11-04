@@ -1,4 +1,4 @@
-import {sanitizeStringWithTableRows} from "../../utils.js"
+import { sanitizeStringWithTableRows } from "../../utils.js"
 const API_ENDPOINT = 'http://localhost:8080/api/books';
 
 //These values are not declared as constants, to allow for changing them due to user interaction
@@ -12,8 +12,12 @@ let isInitialized = false;
 export async function initBooks(match) {
   //TODO: Use the match argument to read the page, size and sort parameters from the query string 
   //and initialize pageSize, sortColumn and sortOrder accordingly
-  const page = 0
- 
+  const page = match?.params?.page || 0
+  pageSize = match?.params?.size || pageSize
+  sortColumn = match?.params?.sort?.split(",")[0] || sortColumn
+  sortOrder = match?.params?.sort.split(",")[1] || "asc"
+
+
   if (!isInitialized) {  //No reason to setup event handlers if it's already been done
     isInitialized = true;
     document.querySelector('#pagination').addEventListener('click', handlePaginationClick)
@@ -34,7 +38,12 @@ function handlePaginationClick(evt) {
 function handleSortClick(evt) {
   const target = evt.target
   if (!target.id.startsWith("sort-")) return
+
   //TODO Add the missing sort functionality here
+  sortColumn = target.id.substring(5)
+  const sort = target.dataset.sort_order === 'asc' ? 'desc' : 'asc'
+  target.dataset.sort_order = sort
+  sortOrder = sort
 
   fetchData();
 }
@@ -48,7 +57,9 @@ async function fetchData(page = 0) {
   displayPagination(data.totalPages, page);
 
   //TODO Update URL here (without forcing an actual navigation step), to allow for linking into specific pages when used with the Navigo Router
-  
+  const navigoRoute = "books"
+  window.router?.navigate(`/${navigoRoute}${queryString}`, { callHandler: false, updateBrowserURL: true })
+
 }
 
 function displayData(books) {
