@@ -54,9 +54,10 @@ async function fetchData(page = 0) {
   displayData(data.content);
   displayPagination(data.totalPages, page);
 
-  //TODO Update URL here (without forcing an actual navigation step), to allow for linking into specific pages when used with the Navigo Router
+   //TODO Update URL here,  without forcing an actual navigation step
   const navigoRoute = "books"
   window.router?.navigate(`/${navigoRoute}${queryString}`, { callHandler: false, updateBrowserURL: true })
+  
 
 }
 
