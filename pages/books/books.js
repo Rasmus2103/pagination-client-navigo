@@ -38,11 +38,10 @@ function handlePaginationClick(evt) {
 function handleSortClick(evt) {
   const target = evt.target
   if (!target.id.startsWith("sort-")) return
-
   //TODO Add the missing sort functionality here
   sortColumn = target.id.substring(5)
   sortDirection = target.dataset.sort_direction === 'asc' ? 'desc' : 'asc'
-  target.dataset.sort_order = sortDirection
+  target.dataset.sort_direction = sortDirection
   fetchData();
 }
 
