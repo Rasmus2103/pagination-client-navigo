@@ -6,10 +6,12 @@ import {
 } from "./utils.js"
 
 import {initBooks} from "./pages/books/books.js"
+import {initBooksNoPagination} from "./pages/books-nopagination/books.js"
 
 window.addEventListener("load", async () => {
 
   const templateBooks = await loadHtml("./pages/books/books.html")
+  const templateBooksNoPagination = await loadHtml("./pages/books-nopagination/books.html")
   const templateHome = await loadHtml("./pages/home/home.html")
 
   const router = new Navigo("/",{hash:true});
@@ -32,6 +34,10 @@ window.addEventListener("load", async () => {
         "/books": (match) => {
           renderHtml(templateBooks, "content")
           initBooks(match)
+        },
+        "/books-no-pagination": (match) => {
+          renderHtml(templateBooksNoPagination, "content")
+          initBooksNoPagination()
         }
       })
       .notFound(() => document.getElementById("content").innerHTML ="<h2>404 - Page not found</h2>")

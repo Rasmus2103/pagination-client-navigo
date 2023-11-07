@@ -36,10 +36,20 @@
     let sortDirection = 'asc'
 
     document.getElementById('header-row').onclick = function (evt) {
+<<<<<<< HEAD
       const target = evt.target      
       if (!target.id.startsWith("sort-")) return
       //TODO Add the missing sort functionality here
       
+=======
+      const target = evt.target
+      if (!target.id.startsWith("sort-")) {
+        return
+      }
+      sortColumn = target.id.substring(5)
+      sortDirection = target.dataset.sort_direction === 'asc' ? 'desc' : 'asc'
+      target.dataset.sort_direction = sortDirection
+>>>>>>> complete
       fetchData();
     };
 

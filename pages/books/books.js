@@ -1,10 +1,10 @@
-import {sanitizeStringWithTableRows} from "../../utils.js"
+import { sanitizeStringWithTableRows } from "../../utils.js"
 const API_ENDPOINT = 'http://localhost:8080/api/books';
 
 //These values are not declared as constants, to allow for changing them due to user interaction
 let pageSize = 10;
 let sortColumn = 'author';
-let sortOrder = 'asc';
+let sortDirection = 'asc';
 let queryString
 let isInitialized = false;
 
@@ -12,8 +12,8 @@ let isInitialized = false;
 export async function initBooks(match) {
   //TODO: Use the match argument to read the page, size and sort parameters from the query string 
   //and initialize pageSize, sortColumn and sortOrder accordingly
-  const page = 0
- 
+  const page =  0
+
   if (!isInitialized) {  //No reason to setup event handlers if it's already been done
     isInitialized = true;
     document.querySelector('#pagination').addEventListener('click', handlePaginationClick)
@@ -35,14 +35,13 @@ function handleSortClick(evt) {
   const target = evt.target
   if (!target.id.startsWith("sort-")) return
   //TODO Add the missing sort functionality here
-
   fetchData();
 }
 
 async function fetchData(page = 0) {
   const size = pageSize
   //Build a query string like this to match expectations on the server: ?page=0&size=10&sort=author,desc
-  queryString = `?page=${page}&size=${size}&sort=${sortColumn},${sortOrder}`
+  queryString = `?page=${page}&size=${size}&sort=${sortColumn},${sortDirection}`
   const data = await fetch(`${API_ENDPOINT}${queryString}`).then(res => res.json())//TODO: Handle error cases
   displayData(data.content);
   displayPagination(data.totalPages, page);
