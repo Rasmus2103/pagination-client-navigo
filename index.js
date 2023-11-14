@@ -7,12 +7,15 @@ import {
 
 import {initBooks} from "./pages/books/books.js"
 import {initBooksNoPagination} from "./pages/books-nopagination/books.js"
+import {initGrid} from "./pages/grid/grid.js"
 
 window.addEventListener("load", async () => {
 
   const templateBooks = await loadHtml("./pages/books/books.html")
   const templateBooksNoPagination = await loadHtml("./pages/books-nopagination/books.html")
   const templateHome = await loadHtml("./pages/home/home.html")
+  const templateGrid = await loadHtml("./pages/grid/grid.html")
+  const templateGrid2 = await loadHtml("./pages/grid2.html")
 
   const router = new Navigo("/",{hash:true});
   window.router = router
@@ -38,12 +41,26 @@ window.addEventListener("load", async () => {
         "/books-no-pagination": (match) => {
           renderHtml(templateBooksNoPagination, "content")
           initBooksNoPagination()
+        },
+        "/grid": () => {
+          renderHtml(templateGrid, "content")
+          initGrid()
+        },
+        "/grid-2": () => {
+          renderHtml(templateGrid2, "content")
         }
+       
       })
       .notFound(() => document.getElementById("content").innerHTML ="<h2>404 - Page not found</h2>")
       .resolve()
 });
 
+function onWindowResize(){
+  const width = window.innerWidth
+  document.getElementById('width').innerText = ""+width
+}
+window.addEventListener('resize', onWindowResize)
+onWindowResize() //Call manually to display initial width
 
 window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
   alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
