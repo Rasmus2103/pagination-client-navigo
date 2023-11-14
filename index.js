@@ -44,6 +44,13 @@ window.addEventListener("load", async () => {
       .resolve()
 });
 
+function onWindowResize(){
+  const width = window.innerWidth
+  document.getElementById('width').innerText = ""+width
+}
+window.addEventListener('resize', onWindowResize)
+onWindowResize() //Call manually to display initial width
+
 
 window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
   alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
