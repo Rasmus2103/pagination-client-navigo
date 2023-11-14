@@ -1,5 +1,6 @@
 import { sanitizeStringWithTableRows } from "../../utils.js"
-const API_ENDPOINT = 'http://localhost:8080/api/books';
+import {API_URL} from "../../settings.js"
+const API_ENDPOINT = `${API_URL}/books`;
 
 //These values are not declared as constants, to allow for changing them due to user interaction
 let pageSize = 10;

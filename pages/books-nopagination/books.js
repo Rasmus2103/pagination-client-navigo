@@ -1,5 +1,6 @@
 import { sanitizeStringWithTableRows } from "../../utils.js"
-const API_ENDPOINT = 'http://localhost:8080/api/books';
+import {API_URL} from "../../settings.js"
+const API_ENDPOINT = `${API_URL}/books`;
 
 export async function initBooksNoPagination() {
   //TODO: Use the match argument to read the page, size and sort parameters from the query string 
