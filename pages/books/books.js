@@ -15,6 +15,19 @@ export async function initBooks(match) {
   //and initialize pageSize, sortColumn and sortOrder accordingly
   const page =  0
 
+  if(match && match.queryString) {
+    page = match.queryString ? parseInt(match.queryString.page, 10) : page; 
+    pageSize = match.queryString.size ? parseInt(match.queryString.size, 10) : pageSize;
+
+    if (match.query.sort) {
+      const sortParams = match.query.sort.split(',');
+      if (sortParams.length === 2) {
+        sortColumn = sortParams[0];
+        sortDirection = sortParams[1];
+      }
+    }
+  }
+
   if (!isInitialized) {  //No reason to setup event handlers if it's already been done
     isInitialized = true;
     document.querySelector('#pagination').addEventListener('click', handlePaginationClick)
@@ -35,7 +48,9 @@ function handlePaginationClick(evt) {
 function handleSortClick(evt) {
   const target = evt.target
   if (!target.id.startsWith("sort-")) return
-  //TODO Add the missing sort functionality here
+  sortColumn = target.id.replace("sort-", "");
+  sortDirection = target.dataset.sort_direction === "asc" ? "desc" : "asc";
+  target.dataset.sort_direction = sortDirection;
   fetchData();
 }
 

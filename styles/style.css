@@ -1,3 +1,10 @@
 ul a.active {
   font-weight: bold;
 }
+
+/* Custom CSS for row colors */
+.row-black { background-color: black; color: white; }
+.row-grey { background-color: grey; color: white; }
+.row-green { background-color: green; color: white; }
+.row-yellow { background-color: yellow; color: black; }
+.row-red { background-color: red; color: white; }

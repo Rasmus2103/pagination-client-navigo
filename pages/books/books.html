@@ -4,15 +4,17 @@
             color:steelblue
         }
     </style>
-    <table class="table">
-        <thead>
-            <!--The Sort Icons used below requires font-awesome which is imported in index.html-->
-        <tr id="header-row">
-            <th style="width:20%">Author <i id="sort-author" data-sort_direction="asc" class="fa fa-sort"></i></th>
-            <th>Title <i  id="sort-title" data-sort_direction="asc" class="fa fa-sort"></i></th>
-        </tr>
-        </thead>
-        <tbody id="book-rows"></tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered">
+            <thead>
+                <!--The Sort Icons used below requires font-awesome which is imported in index.html-->
+                <tr id="header-row" class="bg-primary">
+                    <th style="width:20%">Author <i id="sort-author" data-sort_direction="asc" class="fa fa-sort"></i></th>
+                    <th>Title <i  id="sort-title" data-sort_direction="asc" class="fa fa-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody id="book-rows"></tbody>
+        </table>
+    </div>
     <ul class="pagination" id="pagination"></ul>
 </div>
